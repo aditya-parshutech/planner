@@ -1,0 +1,16 @@
+<ifModule mod_php.c>
+  php_value output_handler ob_gzhandler
+  php_value short_open_tag 1
+</ifModule>
+#RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule .* index.php/$0 [PT,L]
+
+# use mod_rewrite for pretty URL support
+RewriteEngine on
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# otherwise forward the request to index.php
+RewriteRule .* index.php/$0 [PT,L]
