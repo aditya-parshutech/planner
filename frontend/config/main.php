@@ -15,12 +15,20 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'request' => [
+            'baseUrl' => $baseUrl,
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_frontendUser', // unique for frontend
+                'path'=>'/frontend/web'  // correct path for the frontend app.
+            ]
         ],
-        'request' => [
-            'baseUrl' => $baseUrl,
+        'session' => [
+            'name' => '_frontendSessionId', // unique for frontend
+            'savePath' => __DIR__ . '/../runtime', // a temporary folder on frontend
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
