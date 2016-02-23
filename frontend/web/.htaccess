@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+IndexIgnore */*
+
+# use mod_rewrite for pretty URL support
+RewriteEngine on
+RewriteBase /
+
+
+#RewriteCond %{REQUEST_URI} !^/backend
+#RewriteRule ^(.*)$ /frontend/web/$1 [L]
+
+#otherwise route the request to the backend
+#RewriteRule ^backend/(.*)$ backend/web/$1 [L]
+
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# otherwise forward the request to index.php
+RewriteRule . /index.php [L]
+
+#php_value  post_max_size  50M
+

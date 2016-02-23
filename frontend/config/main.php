@@ -6,6 +6,9 @@ $params = array_merge(
     require(__DIR__ . '/params-local.php')
 );
 
+use \yii\web\Request;
+$baseUrl = str_replace('/frontend/web', '', (new Request)->getBaseUrl());
+
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
@@ -15,6 +18,9 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+        ],
+        'request' => [
+            'baseUrl' => $baseUrl,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -27,6 +33,13 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'urlManager' => [
+            'enablePrettyUrl'=>true,
+            'showScriptName'=>false,
+            'baseUrl' => $baseUrl,
+            'rules'=>[
+            ]
         ],
     ],
     'params' => $params,
